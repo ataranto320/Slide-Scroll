@@ -19,8 +19,18 @@ function debounce(func, wait = 20, immediate = true) {
     //   console.log(e);
     // console.log(window.scrollY);
     sliderImages.forEach(slideImage => {
-        const slideInAt = (window.scrollY + window.innerHeight) - slideImage.height / 2;
-        console.log(slideInAt);
+        // half way through image
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+        // bottom of image
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        if (isHalfShown && isNotScrolledPast) {
+            sliderImage.classList.add("active");
+        } else {
+            sliderImage.classList.remove("active");
+        }
+        // console.log(slideInAt);
     });
   }
 
